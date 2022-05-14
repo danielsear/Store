@@ -42,8 +42,8 @@
 .user_menu a:hover{
   color: #e6b967;
  
-  transform: scale(1.05);
-}
+  transform: translateX(.2rem) translateY(.2rem);
+} 
 
 .user_menu i {
   margin-right: .5rem;
