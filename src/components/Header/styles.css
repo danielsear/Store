@@ -1,0 +1,36 @@
+#header_container{
+ 
+  background: #F8EEDB;
+  color: #202020;
+
+  display: flex;
+  
+}
+
+.logo{
+  width: 30%;
+  font-family: 'Lobster', cursive;
+  font-size:2.5rem ;
+  margin-left: 1rem;
+  
+}
+.pesquisa{
+  width: 50%;
+}
+
+.user_menu{
+  width: 20%;
+}
+
+.user_menu a{
+  display: flex;
+
+  align-items: center;
+  margin: .5rem;
+
+  text-decoration: none;
+  color: #202020;
+}
+.user_menu i {
+  margin-right: .5rem;
+}
