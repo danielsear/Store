@@ -8,7 +8,7 @@ import {FormEvent} from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import useAuth from '../../hooks/useAuth'
-import { database } from '../../services/firebase'
+import { auth, database } from '../../services/firebase'
 
 
 
@@ -33,6 +33,11 @@ function Header(){
   }
  
   function handleLogoff(){
+   auth.signOut().then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+      // An error happened.
+    });
   }
   
 
@@ -74,7 +79,7 @@ function Header(){
             <div >
               <img src={user.avatar} alt={user.name} />
               Olá, seja bem vindo! 
-            <a href="#userMenu" className='sair' onClick={handleLogoff}>
+            <a href="/" className='sair' onClick={handleLogoff}>
               Sair
             </a>
           </div>
