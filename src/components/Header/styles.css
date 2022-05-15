@@ -42,11 +42,16 @@
 .user_menu a:hover{
   color: #e6b967;
  
-  transform: translateX(.2rem) translateY(.2rem);
 } 
 
 .user_menu i {
   margin-right: .5rem;
+}
+.user_menu div img {
+  width: 3.5rem;
+  height: 3.5rem;
+
+  border-radius: 50%;
 }
 
 .search{
@@ -68,9 +73,44 @@
   border-radius: 0 1.5rem 1.5rem 0;
   border: 0;
 
+  cursor: pointer;
+
   background: #fff
 }
 .search button:hover{
     background: #f7e2bd;
 }
 
+
+.show_hidden{
+  display: none;
+}
+
+.show_menu{
+  width: 5rem;
+  height: 6rem;
+
+  display: flex;
+  flex-direction: column;
+
+  position: absolute;
+
+ 
+}
+.show_menu p{
+  background: #eee6e6;
+  margin: 0;
+  border: 1px solid #202020;
+
+  cursor: pointer;
+
+  padding: .2rem;
+}
+.show_menu p:first-child{
+  background: red;
+}
+
+.sair{
+ justify-content: space-around;
+ 
+}
