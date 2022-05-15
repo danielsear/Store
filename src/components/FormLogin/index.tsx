@@ -6,18 +6,13 @@ import './styles.css'
 import {auth} from '../../services/firebase'
 
 
-type UserType = {
-  emailUser: string,
-  passwordUser:string,
-  admin? : boolean
-}
 
 function FormLogin(){
   const navegate = useNavigate()
 
   const [email, setEmail] = useState('')
   const [password, setpassword] = useState('')
-  const [user, setUser] = useState<UserType>()
+ 
 
   
   function handleSubmit(e: FormEvent){
@@ -25,16 +20,18 @@ function FormLogin(){
 
 
     if( email && password){
-      setUser({
-  
-        emailUser: email,
-        passwordUser:password
+    
+     
+     auth.signInWithEmailAndPassword( email, password)
+        .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        navegate('/')
       })
-
-      const userconect = {
-        email:email,
-        password: password
-      }
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
 
     }
     
