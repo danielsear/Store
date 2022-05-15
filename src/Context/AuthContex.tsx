@@ -35,9 +35,28 @@ function AuthContextProvider(props: AuthContextProviderProps){
   useEffect(()=>{
     const unsubcribe = auth.onAuthStateChanged(user => {
       if(user){
-        console.log(user);
-        
-      }
+          const{displayName,photoURL,uid} = user
+  
+         if(displayName && photoURL && displayName === "daniel bauboa"){
+            setUser({
+              id: uid,
+              name: displayName,
+              avatar: photoURL,
+              admin: true
+            })
+          }else if (displayName && photoURL){
+            console.log('eu');
+            
+            setUser({
+              id: uid,
+              name: displayName,
+              avatar: photoURL,
+            })
+          }else{
+            throw new Error("Missing information from Google Account."); 
+          }
+           
+        }
     })
     return ()=> {
       unsubcribe()
