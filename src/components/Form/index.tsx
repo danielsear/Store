@@ -28,7 +28,9 @@ function Form(){
         emailUser: email,
         passwordUser:password
       })
+      document.write('Usuario logado')
       navegate('/nameUser/idUserDatabase')
+      return
     }
     throw new Error("Preencha todos os campos");
    } catch (error) {
