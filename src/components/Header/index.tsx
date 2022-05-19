@@ -3,7 +3,7 @@ import './styles.css'
 import userMenu from '../../assets/images/user-enter1.svg'
 import Search from '../../assets/images/search_icon.svg'
 
-import {FormEvent} from 'react'
+import {FormEvent, useEffect, useState} from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -11,13 +11,66 @@ import useAuth from '../../hooks/useAuth'
 import { auth, database } from '../../services/firebase'
 
 
-
+type UserCurrent ={
+  photoURL?: string,
+  email: string,
+  displayName?: string,
+}
 
 function Header(){
   const navigate = useNavigate()
   const {user,signInWithGoogle} = useAuth()
+  const [userCurrent, setUserCurrent]  = useState<UserCurrent>()
+  const currentUser = auth.currentUser
+ 
+ 
 
+    function confirme(){
+      if(user){
+        console.log(user);
+        setUserCurrent({
+          photoURL: user.avatar,
+          email: user.email,
+          displayName: user.name
+
+        })
+        
+        return
+      }else if(currentUser?.email && currentUser?.displayName && currentUser.photoURL){
+        setUserCurrent({
+          photoURL: currentUser.photoURL,
+          email: currentUser.email,
+          displayName: currentUser.displayName
+        })
+        return
+      }else if (currentUser?.email && currentUser?.displayName ){
+        setUserCurrent({
+          email: currentUser.email,
+          displayName: currentUser.displayName
+        })
+     
+        return
+      }else if(currentUser?.email && currentUser?.photoURL){
+        setUserCurrent({
+          email: currentUser.email,
+          photoURL: currentUser.photoURL,
+        })
+        return
+        }else if(currentUser?.email){
+          setUserCurrent({
+            email: currentUser.email,
+          })
+    
+          return
+        }
+    }
+
+    useEffect(()=>{
+      confirme()
+      
+    },[currentUser])
   
+ 
 
   function handleLogin(e: FormEvent) {
     e.preventDefault()
@@ -27,7 +80,7 @@ function Header(){
   async function handleLoginGoogle(e: FormEvent) {
     e.preventDefault()
 
-    if(!user){
+    if(!user && !userCurrent){
       await signInWithGoogle()
     }
   }
@@ -43,7 +96,7 @@ function Header(){
 
   function handleShowMenuOver(){  
     const fild = document.querySelector('.show_hidden')
-      fild?.classList.add('show_menu')
+      fild?.classList.add('show_menu') 
   }
   function handleShowMenuOut(){  
     setTimeout(() => {
@@ -62,7 +115,22 @@ function Header(){
            </div>
           </section>
         <section className='user_menu'>
-          {!user ? (
+          {userCurrent ? (
+              <div className='show_user_info'>
+              <img src={userCurrent.photoURL ? (userCurrent.photoURL): (userMenu)} alt={userCurrent.displayName ? (userCurrent.displayName): (userCurrent.email)} />
+              <div>
+              <strong>
+                {userCurrent.displayName ? (userCurrent.displayName): (userCurrent.email.split('@')[0])}
+              </strong>
+                <br/>
+              Olá, seja bem vindo! 
+              <a href="/" className='sair' onClick={handleLogoff}>
+              Sair
+              </a>
+              </div>
+              </div>
+           
+          ): (
             <>
             <div  onMouseOver={handleShowMenuOver} onMouseOut={handleShowMenuOut}>
             <a href="#userMenu" >
@@ -75,14 +143,6 @@ function Header(){
                   <p onClick={handleLogin}>User</p>
             </div>
             </>
-          ): (
-            <div >
-              <img src={user.avatar} alt={user.name} />
-              Olá, seja bem vindo! 
-            <a href="/" className='sair' onClick={handleLogoff}>
-              Sair
-            </a>
-          </div>
           )}
         </section>
       </div>

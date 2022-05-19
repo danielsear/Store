@@ -1,23 +1,20 @@
 import {createContext, ReactNode, useEffect, useState} from 'react'
 
-import { auth,firebase}from '../services/firebase';
-
+import { auth,database,firebase}from '../services/firebase';
 
 
 type UserGoogle= {
   id:string,
   name:string,
   avatar:string,
+  email: string,
   admin? : boolean
 }
 
 
-
-
 type AuthContextType={
   user: UserGoogle | undefined,
-  signInWithGoogle: ()=> Promise<void>,
- 
+  signInWithGoogle: ()=> Promise<void>
 }
 
 type AuthContextProviderProps={
@@ -32,6 +29,7 @@ function AuthContextProvider(props: AuthContextProviderProps){
   
   const [user, setUser]= useState<UserGoogle>() 
   
+ /*
   useEffect(()=>{
     const unsubcribe = auth.onAuthStateChanged(user => {
       if(user){
@@ -63,29 +61,31 @@ function AuthContextProvider(props: AuthContextProviderProps){
     }
   },[])
 
+ */
   async function signInWithGoogle(){
     const provider = new firebase.auth.GoogleAuthProvider()
 
     const result = await  auth.signInWithPopup(provider)
     
       if(result.user){
-        const{displayName,photoURL,uid} = result.user
+        const{displayName,photoURL,uid, email} = result.user
 
-       if(displayName && photoURL && displayName === "daniel bauboa"){
+       if(displayName && photoURL && displayName === "daniel bauboa" && email){
       
           setUser({
             id: uid,
             name: displayName,
             avatar: photoURL,
+            email: email,
             admin: true
           })
-        }else if (displayName && photoURL){
-          console.log('eu');
+        }else if (displayName && photoURL && email){
           
           setUser({
             id: uid,
             name: displayName,
             avatar: photoURL,
+            email: email
           })
         }else{
           throw new Error("Missing information from Google Account."); 
@@ -94,6 +94,8 @@ function AuthContextProvider(props: AuthContextProviderProps){
       }
     }
 
+ 
+  
   
 
   return (
