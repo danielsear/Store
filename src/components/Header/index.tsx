@@ -15,6 +15,7 @@ type UserCurrent ={
   photoURL?: string,
   email: string,
   displayName?: string,
+  admin?: boolean
 }
 
 function Header(){
@@ -28,11 +29,20 @@ function Header(){
     function confirme(){
       if(user){
         console.log(user);
+
+        if(user.admin){
+          setUserCurrent({
+            photoURL: user.avatar,
+            email: user.email,
+            displayName: user.name,
+            admin: user.admin 
+          })
+          return
+        }
         setUserCurrent({
           photoURL: user.avatar,
           email: user.email,
-          displayName: user.name
-
+          displayName: user.name,
         })
         
         return
@@ -70,6 +80,7 @@ function Header(){
       
     },[currentUser])
   
+
  
 
   function handleLogin(e: FormEvent) {
@@ -123,7 +134,8 @@ function Header(){
                 {userCurrent.displayName ? (userCurrent.displayName): (userCurrent.email.split('@')[0])}
               </strong>
                 <br/>
-              Olá, seja bem vindo! 
+                <>{userCurrent.admin ? (<a href="/admin">Servidor Admin</a> ) :  
+                ('Olá, seja bem vindo!') }</>
               <a href="/" className='sair' onClick={handleLogoff}>
               Sair
               </a>
@@ -132,16 +144,16 @@ function Header(){
            
           ): (
             <>
-            <div  onMouseOver={handleShowMenuOver} onMouseOut={handleShowMenuOut}>
-            <a href="#userMenu" >
-              <i><img src={userMenu} alt="Menu do usuário" /></i>
-              Entrar
-            </a>
-          </div>
-          <div className='show_hidden'>
-                  <p onClick={handleLoginGoogle}>Google</p>
-                  <p onClick={handleLogin}>User</p>
-            </div>
+              <div  onMouseOver={handleShowMenuOver} onMouseOut={handleShowMenuOut}>
+              <a href="#userMenu" >
+                <i><img src={userMenu} alt="Menu do usuário" /></i>
+                Entrar
+              </a>
+              </div>
+              <div className='show_hidden'>
+                    <p onClick={handleLoginGoogle}>Google Account</p>
+                    <p onClick={handleLogin}>User Account</p>
+              </div>
             </>
           )}
         </section>

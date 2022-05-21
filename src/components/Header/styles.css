@@ -41,7 +41,7 @@
 
 .user_menu a:hover{
   color: #e6b967;
- 
+  text-decoration: underline;
 } 
 
 .user_menu i {
@@ -92,8 +92,8 @@
 }
 
 .show_menu{
-  width: 5rem;
-  height: 6rem;
+  width: 8rem;
+  height: 8rem;
 
   display: flex;
   flex-direction: column;

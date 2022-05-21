@@ -35,11 +35,11 @@ function Form(){
       auth.createUserWithEmailAndPassword(userconect.email, userconect.password)
       .then((userCredential)=>{ 
         const user = userCredential.user; 
+       const key = database.ref('page').child('userAuthentication').push(userconect).key
+       
+        navegate(`/form/login/${key}`)
       }).catch(error => console.error(error))
 
-      database.ref('page').child('user').set(userconect)
-
-      navegate('/')
     }
    
   }
@@ -50,8 +50,8 @@ function Form(){
           <div className='form_header'>
               Kassinha Variedades
           </div>
-          <h2>Login:</h2>
-          <form className='form_Cadastro'>
+          <h2>Create Login:</h2>
+          <form className='form_Cadastro' onSubmit={handleSubmit}>
             <div>
               <label htmlFor="name">Nome:</label>
               <input type="text" 
@@ -76,7 +76,7 @@ function Form(){
               placeholder='Digite sua senha' 
               />
             </div>
-            <button onClick={handleSubmit}>Cadastrar</button>
+            <button type='submit' >Cadastrar</button>
           </form>
       </div>
     

@@ -21,8 +21,9 @@ function App() {
             <Routes>
               <Route path='/' element={<Home/>} />
               <Route path='/form/login' element={<FormLogin/>}/>
+              <Route path='/form/login/:key' element={<FormLogin/>}/>
               <Route path='/form/create-login' element={<FormCreate/>}/>
-              <Route path='/admin/login/senha' element={<Admin/>} />
+              <Route path='/admin' element={<Admin/>} />
             </Routes>
         </AuthContextProvider>
       </Router>
