@@ -20,3 +20,43 @@
   font-weight: 500;
   font-size: 1.2rem;
 }
+
+.card_button{
+  display: flex;
+  align-items: center;
+  justify-content:flex-end;
+  padding: .5rem;
+}
+.card_button_edit button{
+  margin-right: 1rem;
+  background: #75db15;
+  border: none;
+  padding: .325rem;
+  border-radius: .325rem;
+  width: 4rem;
+  font-weight: 500;
+
+  transition: 1s;
+}
+.card_button_edit button:hover{
+  background: #3a7007;
+  color: #fff;
+}
+
+.card_button_delete button{
+  background: #ff0b03;
+  border: none;
+  padding: .325rem;
+  border-radius: .325rem;
+  width: 4rem;
+  font-weight: 500;
+
+  transition: 1s;
+}
+.card_button_delete button:hover{
+  background: #b30c07;
+  color: #fff;
+
+}
+
+
