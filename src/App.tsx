@@ -10,8 +10,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/:object" element={<Home />} />
         <Route path="/form/login" element={<FormLogin />} />
-        <Route path="/form/login/:id" element={<FormLogin />} />
         <Route path="/form/create-login" element={<FormCreate />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>

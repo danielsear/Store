@@ -16,10 +16,36 @@ function CreateUser(user: User) {
     },
     body: JSON.stringify({ name, email, password, admin })
   })
+    .then()
+    .catch(err => console.error(err))
+}
+
+function findUsers() {
+  return fetch(`http://localhost:3333/users/`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(resp => resp.json())
     .then(data => {
-      console.log(data)
+      return data
     })
     .catch(err => console.error(err))
 }
 
-export default CreateUser
+function findOneUser(id: string) {
+  return fetch(`http://localhost:3333/user/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(resp => resp.json())
+    .then(data => {
+      return data
+    })
+    .catch(err => console.error(err))
+}
+
+export { CreateUser, findUsers, findOneUser }

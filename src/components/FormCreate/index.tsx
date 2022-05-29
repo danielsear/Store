@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { v4 } from 'uuid'
-import CreateUser, { User } from '../../services/User'
+import { CreateUser, User } from '../../services/User'
 
 import './styles.css'
 
@@ -31,7 +31,7 @@ function Form() {
         password: user.password,
         name: user.name
       })
-      navegate('/')
+      navegate('/form/login')
     } else if (user?.email && user.password && user.name && user.admin) {
       CreateUser({
         email: user.email,
@@ -39,7 +39,7 @@ function Form() {
         name: user.name,
         admin: user.admin
       })
-      navegate('/')
+      navegate('/form/login')
     }
   }
 
