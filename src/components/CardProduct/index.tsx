@@ -1,5 +1,3 @@
-import { database } from '../../services/firebase'
-
 import './styles.css'
 
 export type CardType = {

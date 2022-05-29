@@ -1,4 +1,4 @@
-import CardProduct from '../../components/CardProduct'
+
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 

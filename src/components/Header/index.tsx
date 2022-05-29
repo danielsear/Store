@@ -3,12 +3,9 @@ import './styles.css'
 import userMenu from '../../assets/images/user-enter1.svg'
 import Search from '../../assets/images/search_icon.svg'
 
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useState } from 'react'
 
 import { useNavigate, Link } from 'react-router-dom'
-
-import useAuth from '../../hooks/useAuth'
-import { auth } from '../../services/firebase'
 
 type UserCurrent = {
   photoURL?: string
@@ -19,10 +16,11 @@ type UserCurrent = {
 
 function Header() {
   const navigate = useNavigate()
-  const { user, signInWithGoogle } = useAuth()
-  const [userCurrent, setUserCurrent] = useState<UserCurrent>()
-  const currentUser = auth.currentUser
 
+  const [userCurrent, setUserCurrent] = useState<UserCurrent>()
+
+  /*
+  
   function confirmUser() {
     if (user) {
       if (user.admin) {
@@ -78,11 +76,7 @@ function Header() {
     confirmUser()
   }, [currentUser])
 
-  function handleLogin(e: FormEvent) {
-    e.preventDefault()
 
-    navigate('/form/login')
-  }
   async function handleLoginGoogle(e: FormEvent) {
     e.preventDefault()
 
@@ -100,6 +94,13 @@ function Header() {
       .catch(error => {
         // An error happened.
       })
+  }
+  */
+
+  function handleLogin(e: FormEvent) {
+    e.preventDefault()
+
+    navigate('/form/login')
   }
 
   function handleShowMenuOver() {
@@ -149,7 +150,7 @@ function Header() {
                   'Olá, seja bem vindo!'
                 )}
               </>
-              <a href="/" className="sair" onClick={handleLogoff}>
+              <a href="/" className="sair">
                 Sair
               </a>
             </div>
@@ -168,7 +169,7 @@ function Header() {
               </a>
             </div>
             <div className="show_hidden">
-              <p onClick={handleLoginGoogle}>Google Account</p>
+              <p>Google Account</p>
               <p onClick={handleLogin}>User Account</p>
             </div>
           </>
